@@ -1,6 +1,7 @@
+import ky from "ky";
 import Link from "next/link";
 
-import { stories } from "static-data";
+import { baseUrl, testEnvMessage } from "config";
 import { Story } from "types";
 
 import type { GetStaticProps, NextPage } from "next";
@@ -13,6 +14,7 @@ const Home: NextPage<HomeProps> = ({ stories }) => {
   return (
     <div>
       <h1>Home</h1>
+      <p>testEnvMessage: {testEnvMessage}</p>
       <ul>
         {stories.map((story) => (
           <li key={story.id}>
@@ -27,8 +29,8 @@ const Home: NextPage<HomeProps> = ({ stories }) => {
 };
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  // const res = await ky.get(`${baseUrl}/api/stories`);
-  // const stories = await res.json<Story[]>();
+  const res = await ky.get(`${baseUrl}/api/stories`);
+  const stories = await res.json<Story[]>();
   return {
     props: {
       stories,

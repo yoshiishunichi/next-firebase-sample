@@ -1,6 +1,8 @@
+import ky from "ky";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Link from "next/link";
 
+import { baseUrl } from "config";
 import { stories } from "static-data";
 import { Story } from "types";
 
@@ -9,10 +11,12 @@ type StoryPageProps = {
 };
 
 const StoryPage: NextPage<StoryPageProps> = ({ story }) => {
+  console.log(story);
+
   return (
     <div>
-      <h1>story: {story?.title}</h1>
-      <p>あらすじ: {story?.description}</p>
+      <h1>story: {story.title}</h1>
+      <p>あらすじ: {story.description}</p>
       <Link href={"/"}>Homeに戻る</Link>
     </div>
   );
@@ -31,9 +35,13 @@ export const getStaticPaths: GetStaticPaths = () => {
 
 export const getStaticProps: GetStaticProps<StoryPageProps> = async ({ params }) => {
   const id = params?.id as string;
+
+  const res = await ky.get(`${baseUrl}/api/stories/${id}`);
+  const { story } = await res.json<{ story: Story }>();
+
   return {
     props: {
-      story: stories.filter(({ id: _id }) => _id === Number(id))[0],
+      story,
     },
   };
 };
