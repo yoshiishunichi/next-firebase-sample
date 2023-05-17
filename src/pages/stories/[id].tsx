@@ -11,8 +11,6 @@ type StoryPageProps = {
 };
 
 const StoryPage: NextPage<StoryPageProps> = ({ story }) => {
-  console.log(story);
-
   return (
     <div>
       <h1>story: {story.title}</h1>
