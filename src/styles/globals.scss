@@ -16,6 +16,12 @@ a {
   }
 }
 
+img {
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+}
+
 * {
   box-sizing: border-box;
 }
