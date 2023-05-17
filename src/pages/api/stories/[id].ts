@@ -9,10 +9,10 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
     res.status(400).json({ error: "Missing id" });
   }
 
-  const story = stories[Number(id)];
+  const story = stories.filter(({ id: _id }) => _id === Number(id))[0];
   if (!story) {
     res.status(404).json({ error: "Not Found" });
   }
 
-  res.status(200).json({ story: stories[Number(id)] });
+  res.status(200).json({ story });
 }
