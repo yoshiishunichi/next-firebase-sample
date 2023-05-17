@@ -3,9 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 
 import { baseUrl, testEnvMessage } from "config";
+import { cacheHeaderKey, swrHeaderValue } from "static-data";
 import { Story } from "types";
 
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 
 type HomeProps = {
   stories: Story[];
@@ -30,9 +31,11 @@ const Home: NextPage<HomeProps> = ({ stories }) => {
   );
 };
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-  const res = await ky.get(`${baseUrl}/api/stories`);
-  const stories = await res.json<Story[]>();
+export const getServerSideProps: GetServerSideProps<HomeProps> = async ({ res }) => {
+  res.setHeader(cacheHeaderKey, swrHeaderValue);
+
+  const apiResponse = await ky.get(`${baseUrl}/api/stories`);
+  const stories = await apiResponse.json<Story[]>();
   return {
     props: {
       stories,

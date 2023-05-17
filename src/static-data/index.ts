@@ -32,3 +32,6 @@ export const stories: Story[] = [
     title: "人生の軌跡のすべて",
   },
 ];
+
+export const cacheHeaderKey = "Cache-Control";
+export const swrHeaderValue = `public, s-maxage=${60 * 60}, stale-while-revalidate=${60 * 60 * 30}`;
