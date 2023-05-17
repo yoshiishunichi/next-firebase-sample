@@ -1,7 +1,8 @@
-# next-lint-template
+# next-firebase-sample
 
-Qiita で説明した Next.js の Lint 設定のテンプレートプロジェクトです
+Firebase + Next.js のサンプルです。
+yoshii の大好きなブラック・ミラーの紹介をするサンプルブログです。
 
-## Qiita
+## サイト(すぐに削除する可能性あり)
 
-https://qiita.com/ganja_tuber/items/95507e658ecfef7e9457
+https://next-firebase-sample-951b8.web.app/
