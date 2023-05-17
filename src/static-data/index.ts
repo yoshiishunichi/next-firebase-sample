@@ -26,7 +26,7 @@ export const stories: Story[] = [
     id: 3,
     image: {
       height: 569,
-      path: "/images/1.png",
+      path: "/images/3.png",
       width: 1007,
     },
     title: "人生の軌跡のすべて",
