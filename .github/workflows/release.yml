@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  release:
+    name: deploy
+    env:
+      GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+      GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD_SERVICE_KEY }}
+      FIREBASE_CLI_EXPERIMENTS: webframeworks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18.16.0
+      - name: Make GOOGLE_APPLICATION_CREDENTIALS
+        run: echo $GCLOUD_SERVICE_KEY | base64 -d > $GOOGLE_APPLICATION_CREDENTIALS
+      - name: Install Dependencies
+        run: |
+          yarn
+          yarn global add firebase-tools
+      - name: Replace env
+        run: |
+          cat .env.prod > .env.production
+      - name: Deploy
+        run: |
+          yarn deploy:prod
+      - name: Delete GOOGLE_APPLICATION_CREDENTIALS
+        run: rm $GOOGLE_APPLICATION_CREDENTIALS
+        if: ${{ always() }}
+      - name: Make Cache
+        run: |
+          curl ${{secrets.CACHE_API_ENDPOINT}}

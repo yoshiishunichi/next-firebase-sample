@@ -2,6 +2,10 @@
   "hosting": {
     "source": ".",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "predeploy": [
+      "touch .firebase/$PROJECT_ID/functions/.env.local",
+      "cat $ENV_FILE_PATH > .firebase/$PROJECT_ID/functions/.env.local"
+    ],
     "frameworksBackend": {
       "region": "asia-east1",
       "maxInstances": 2

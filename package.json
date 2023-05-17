@@ -11,7 +11,10 @@
     "lint:style": "stylelint --ignore-path .gitignore './**/*.{css,scss}'",
     "lint:style:fix": "stylelint --ignore-path .gitignore --fix './**/*.{css,scss}'",
     "format": "prettier --write --ignore-path .gitignore './**/*.{js,jsx,ts,tsx,json,css,scss}'",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "deploy": "firebase use $PROJECT_ID && firebase deploy",
+    "deploy:prod": "PROJECT_ID=next-firebase-sample-951b8 ENV_FILE_PATH=.env.prod yarn deploy",
+    "deploy:stg": "PROJECT_ID=next-firebase-sample-stg ENV_FILE_PATH=.env.stg yarn deploy"
   },
   "dependencies": {
     "ky": "^0.33.3",
