@@ -1,4 +1,5 @@
 import ky from "ky";
+import Image from "next/image";
 import Link from "next/link";
 
 import { baseUrl, testEnvMessage } from "config";
@@ -14,7 +15,7 @@ const Home: NextPage<HomeProps> = ({ stories }) => {
   return (
     <div>
       <h1>Home</h1>
-      <p>testEnvMessage: {testEnvMessage}</p>
+      <Image alt="home" height={270} src="/images/home.png" width={480} />
       <ul>
         {stories.map((story) => (
           <li key={story.id}>
@@ -24,6 +25,7 @@ const Home: NextPage<HomeProps> = ({ stories }) => {
           </li>
         ))}
       </ul>
+      <p>testEnvMessage: {testEnvMessage}</p>
     </div>
   );
 };

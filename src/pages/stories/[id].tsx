@@ -1,5 +1,6 @@
 import ky from "ky";
 import { GetStaticPaths, GetStaticProps, NextPage } from "next";
+import Image from "next/image";
 import Link from "next/link";
 
 import { baseUrl } from "config";
@@ -11,10 +12,14 @@ type StoryPageProps = {
 };
 
 const StoryPage: NextPage<StoryPageProps> = ({ story }) => {
+  const { id, title, description, image } = story;
+  const { path, width, height } = image;
+
   return (
     <div>
-      <h1>story: {story.title}</h1>
-      <p>あらすじ: {story.description}</p>
+      <h1>story: {title}</h1>
+      <Image alt={`${id}`} height={height} src={path} width={width} />
+      <p>あらすじ: {description}</p>
       <Link href={"/"}>Homeに戻る</Link>
     </div>
   );
