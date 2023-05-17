@@ -23,6 +23,16 @@ const nextConfig = {
     ];
   },
   reactStrictMode: true,
+  trailingSlash: true,
+  webpack: (config, { buildId, webpack }) => {
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        "process.env.NEXT_BUILD_ID": JSON.stringify(buildId),
+      }),
+    );
+
+    return config;
+  },
 };
 
 module.exports = nextConfig;
